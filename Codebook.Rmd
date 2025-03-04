@@ -1,0 +1,41 @@
+---
+title: "Getting and Cleaning Data Final Project Codebook"
+author: "Viswathish Dinesh"
+date: '`r Sys.Date()`'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Codebook
+
+This document is the codebook for this project. It gives details on how the data is retrieved, how it is manipulated, and explains the variables and transformations executed in the script.
+
+## Retrieving the data
+
+The data is retrieved from this link: (https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
+
+The script automatically downloads the data to a subdirectory in the project folder. It also checks to see if the data is already downloaded to avoid multiple downloads, in case the script is ran multiple times. The data is then unzipped so that R can read it in.
+
+## Processing Part 1: Reading the files into R/RStudio
+
+The relevant data files are read into R using the read.table() function. The files are named:
+X_train.txt
+y_train.txt
+subject_train.txt
+X_test.txt
+y_test.txt
+subject_test.txt
+activity_labels.txt
+features.txt
+
+The files are stored in variables with the same names as the text files, ready to begin sorting and processing.
+
+## Processing Part 2: Assigning labels to variables
+(Note: The process for testing and training data is identical. Only one is mentioned for brevity)
+Readable column names are assigned to 'x_test', 'y_test', and 'subject_test'. 'y_test' and 'subject_test' are simply named for the ID which they represent, while the column names for 'x_test' are retrieved from the second column of 'features'.
+
+## Processing Part 3: Merging separated data into one complete data set
+The testing and training data are first individually merged into their own unified data tables, with 'y_test', or the activityID, placed in the first column, followed by 'subject_test', or subjectID. This is then followed by the data stored in 'x_test', containing the measurements for all of the features. The same process applies to the training data set with their respective values.
