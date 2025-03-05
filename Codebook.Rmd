@@ -38,4 +38,20 @@ The files are stored in variables with the same names as the text files, ready t
 Readable column names are assigned to 'x_test', 'y_test', and 'subject_test'. 'y_test' and 'subject_test' are simply named for the ID which they represent, while the column names for 'x_test' are retrieved from the second column of 'features'.
 
 ## Processing Part 3: Merging separated data into one complete data set
-The testing and training data are first individually merged into their own unified data tables, with 'y_test', or the activityID, placed in the first column, followed by 'subject_test', or subjectID. This is then followed by the data stored in 'x_test', containing the measurements for all of the features. The same process applies to the training data set with their respective values.
+The testing and training data are first individually merged into their own unified data tables, with 'y_test', or the activityID, placed in the first column, followed by 'subject_test', or subjectID. This is then followed by the data stored in 'x_test', containing the measurements for all of the features. The same process applies to the training data set with their respective values. The datasets are merged using the cbind() function, producing 'train_all' and 'test_all'.
+
+Then, since the column names are identical between the two data sets, they are combined using the rbind() function, appending all of the rows of one data table to the other, creating a single data table containing all of the testing and training data, properly labeled, as requested by the project.
+
+## Extract mean and SD values
+Using the grepl() function, all column names containing "mean" or "std" were selected out of 'complete_data', the completely merged data set. The function call included the names 'activityID' and 'subjectID' in order to preserve the IDs of the respective values.
+
+## Assigning descriptive labels for 'activityID'
+At this point in time, 'activityID' only consists of numbers indicating the activity. This step replaces 'activityID' with a more descriptive activity name from the 'activity_labels' element.
+
+The column name of the data table is also changed to 'activity', as it is no longer an ID number.
+
+## Assigning descriptive variable names
+Variable names are currently shortened to some arbitrary value. This step extends all variable names to contain the full name of each variable described in the column name. This allows for better readability by future users of the data, and fulfills another step of the project requirements.
+
+## Creating a new tidy data set with averages of each variable
+The final step of the project is to create a separate, independent, tidy data set containing the average of each variable by activity and subject. This step uses the 'group_by()' and 'summarize_all()' functions to group the table by activity and subject, then calculate the means of each column, respectively, and store the final value in a new dataset. The new dataset is then written to a file in order to be accessible without the use of R/RStudio.
