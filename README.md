@@ -12,4 +12,4 @@ The script 'run_analysis.R' includes instructions already for downloading the da
 ## Source of the data
 The source for this data comes from a UC Irvine study which utilizes and studies human activity recognition using smartphones.
 This data is accessible at (https://doi.org/10.24432/C54S4K.)
-The data used for this project was used from this link: (https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
+The data for this project was used from this link: (https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
