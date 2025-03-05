@@ -38,3 +38,31 @@ colnames(x_train) <- features[, 2] ## Retrieves the measurement names from featu
 colnames(y_test) <- "activityID"
 colnames(subject_test) <- "subjectID"
 colnames(x_test) <- features[, 2]
+
+## Combine data sets, then merge
+train_all <- cbind(y_train, subject_train, x_train)
+test_all <- cbind(y_test, subject_test, x_test)
+
+complete_data <- rbind(train_all, test_all)
+
+## Extract measurements of mean and SD for data
+  ## Subset columns of complete_data for mean and SD values
+  mean_SD <- grepl("activityID|subjectID|mean\\(\\)|std\\(\\)", colnames(complete_data))
+  data_extracted <- complete_data[, mean_SD]
+  
+## Replace activityID with descriptive labels
+  data_extracted$activityID <- activity_labels[data_extracted$activityID, 2]
+  names(data_extracted)[1] <- "Activity"
+  
+## Label Data set with descriptive variable names
+  colnames(data_extracted) <- gsub("^t", "Time", colnames(data_extracted))
+  colnames(data_extracted) <- gsub("^f", "Frequency", colnames(data_extracted))
+  colnames(data_extracted) <- gsub("Acc", "Accelerometer", colnames(data_extracted))
+  colnames(data_extracted) <- gsub("Gyro", "Gyroscope", colnames(data_extracted))
+  colnames(data_extracted) <- gsub("Mag", "Magnitude", colnames(data_extracted))
+  colnames(data_extracted) <- gsub("BodyBody", "Body", colnames(data_extracted))
+  
+## Creating a separate data table containing averages by subject and activity
+  grouped_data <- group_by(data_extracted, subjectID, Activity)
+  final_data <- summarize_all(grouped_data, mean)
+  write.table(final_data, "final_data.txt", row.names = FALSE)
